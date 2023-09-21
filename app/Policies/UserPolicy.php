@@ -18,6 +18,10 @@ class UserPolicy
     {
         return $user->is($user2);
     }
+    public function update(User $user, User $user2): bool
+    {
+        return $user->is($user2);
+    }
 
     public function delete(User $user, User $user2): bool
     {

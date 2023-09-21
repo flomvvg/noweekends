@@ -59,6 +59,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update', [$user]);
         return view('users.edit', ['user' => $user]);
     }
 
@@ -67,6 +68,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        $this->authorize('update', [$user]);
         $user->update($request->validated());
 
         return to_route('users.show', ['user' => $user->id]);

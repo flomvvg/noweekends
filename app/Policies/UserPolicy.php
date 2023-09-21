@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
 {
@@ -16,6 +15,11 @@ class UserPolicy
     }
 
     public function view(User $user, User $user2): bool
+    {
+        return $user->is($user2);
+    }
+
+    public function delete(User $user, User $user2): bool
     {
         return $user->is($user2);
     }

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserController extends Controller
 {
@@ -72,8 +75,22 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $this->authorize('delete', [$user]);
+        $dateTime = Carbon::now();
+        $userName = Hash::make($user->username);
+        $userName = $userName . $dateTime->toString();
+        $user->username = "Deleted User [" . Hash::make($userName) . "]";
+
+        $dateTime = Carbon::now();
+        $email = Hash::make($user->email);
+        $email = $email . $dateTime->toString();
+        $email = Hash::make($email);
+
+        $user->email = $email;
+        $user->save();
+
+        return to_route('logout')->with('status', 'Your User has been deleted');
     }
 }

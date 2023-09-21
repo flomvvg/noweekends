@@ -21,6 +21,10 @@
             <label for="username">Username</label>
             <input type="text" name="username" id="username" class="form-control" value="{{ $user->username }}"/>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="d-inline-block btn btn-primary">Submit</button>
+        <form action="/users/{{ $user->id }}">
+            @method('DELETE')
+            <input type="submit" class="btn btn-danger float-right" value="Delete User"/>
+        </form>
     </form>
 </div>

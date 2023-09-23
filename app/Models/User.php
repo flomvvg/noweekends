@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Casts\PasswordCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,4 +47,8 @@ class User extends Authenticatable
         'password' => PasswordCast::class
     ];
 
+    public function organizers(): BelongsToMany
+    {
+        return $this->belongsToMany(Organizer::class);
+    }
 }

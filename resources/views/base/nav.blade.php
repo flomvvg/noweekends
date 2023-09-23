@@ -21,8 +21,9 @@
                         {{ Auth::user()->username }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/users/{{ Auth::id() }}">Your User</a>
+                        <a class="dropdown-item" href="/profiles/create">Create Profile</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
-                        <a class="dropdown-item" href="/users/{{ Auth::id() }}">Profile</a>
                     </div>
                 </li>
 

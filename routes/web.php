@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,7 @@ Route::resource('users', UserController::class);
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::resource('organizers', OrganizerController::class)->middleware('auth');
+Route::get('/profiles/create', function (){
+    return view('profiles.create');
+});

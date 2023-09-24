@@ -13,4 +13,9 @@ class OrganizerPolicy
     {
         //
     }
+
+    public function edit(User $user): bool
+    {
+        return $user->organizers()->exists();
+    }
 }

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrganizerRequest;
+use App\Http\Requests\UpdateOrganizerRequest;
 use App\Models\Organizer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class OrganizerController extends Controller
 {
@@ -42,23 +44,30 @@ class OrganizerController extends Controller
      */
     public function show(Organizer $organizer)
     {
-        return view('profiles.organizers.show', ['organizer' => $organizer]);
+        $users = $organizer->users()->get();
+        return view('profiles.organizers.show', ['organizer' => $organizer, 'users' => $users]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Organizer $organizer): View
     {
-        //
+        $this->authorize('edit', $organizer);
+
+        return view('profiles.organizers.edit', ['organizer' => $organizer]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateOrganizerRequest $request, Organizer $organizer): View
     {
-        //
+        $this->authorize('edit', $organizer);
+        $organizer->update($request->validated());
+        $users = $organizer->users()->get();
+
+        return view('profiles.organizers.show', ['organizer' => $organizer, 'users' => $users]);
     }
 
     /**

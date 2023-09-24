@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_organizer', function (Blueprint $table) {
-            $table->integer('user_id');
+        Schema::create('organizer_user', function (Blueprint $table) {
             $table->integer('organizer_id');
+            $table->integer('user_id');
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_organizer');
+        Schema::dropIfExists('organizer_user');
     }
 };

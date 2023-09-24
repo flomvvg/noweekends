@@ -10,4 +10,11 @@
     <p>Username: {{ $user->username }}</p>
     <p>E-Mail Address: {{ $user->email }}</p>
     <p>Joined at: {{ $user->created_at }}</p>
+    <hr>
+    <h2>Organizer Profiles</h2>
+    <div class="list-group">
+        @foreach($organizers as $organizer)
+            <a href="/organizers/{{ $organizer->id }}" class="list-group-item list-group-item-action">{{ $organizer->name }}</a>
+        @endforeach
+    </div>
 </div>

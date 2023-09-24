@@ -6,6 +6,7 @@ use App\Http\Requests\StoreOrganizerRequest;
 use App\Models\Organizer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrganizerController extends Controller
 {
@@ -31,6 +32,7 @@ class OrganizerController extends Controller
     public function store(StoreOrganizerRequest $request): RedirectResponse
     {
         $organizer = Organizer::create($request->validated());
+        $organizer->users()->attach(Auth::user());
 
         return to_route('organizers.show', ['organizer' => $organizer]);
     }
@@ -38,9 +40,9 @@ class OrganizerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Organizer $organizer)
     {
-        //
+        return view('profiles.organizers.show', ['organizer' => $organizer]);
     }
 
     /**

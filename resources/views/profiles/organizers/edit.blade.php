@@ -18,6 +18,10 @@
             <label for="website">Website</label>
             <input class="form-control" type="text" name="website" id="website">
         </div>
-        <input class="btn btn-primary" type="submit" name="submit" id="submit" value="Submit">
+        <button class="d-inline-block btn btn-primary" type="submit" name="submit" id="submit">Submit</button>
+        <form action="/organizers/{{ $organizer->id }}" METHOD="POST">
+            @csrf @method('DELETE')
+            <input class="btn btn-danger float-right" type="submit" name="submit" id="submit" value="Delete Profile">
+        </form>
     </form>
 </div>

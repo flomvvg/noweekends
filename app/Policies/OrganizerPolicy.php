@@ -18,4 +18,9 @@ class OrganizerPolicy
     {
         return $user->organizers()->exists();
     }
+
+    public function delete(User $user): bool
+    {
+        return $user->organizers()->exists();
+    }
 }

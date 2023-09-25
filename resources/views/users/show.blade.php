@@ -14,7 +14,9 @@
     <h2>Organizer Profiles</h2>
     <div class="list-group">
         @foreach($organizers as $organizer)
-            <a href="/organizers/{{ $organizer->id }}" class="list-group-item list-group-item-action">{{ $organizer->name }}</a>
+            @if(!$organizer->archived)
+                <a href="/organizers/{{ $organizer->id }}" class="list-group-item list-group-item-action">{{ $organizer->name }}</a>
+            @endif
         @endforeach
     </div>
 </div>

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrganizerRequest;
 use App\Http\Requests\UpdateOrganizerRequest;
 use App\Models\Organizer;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class OrganizerController extends Controller
@@ -73,8 +75,18 @@ class OrganizerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Organizer $organizer): RedirectResponse
     {
-        //
+        $this->authorize('delete', $organizer);
+        $dateTime = Carbon::now();
+        $userName = Hash::make($organizer->name);
+        $userName = $userName . $dateTime->toString();
+        $organizer->name = "Deleted Organizer [" . Hash::make($userName) . "]";
+        $organizer->description = null;
+        $organizer->website = null;
+        $organizer->archived = true;
+        $organizer->save();
+
+        return to_route('users.show', Auth::user())->with('status', 'Your organizer profile has been deleted');
     }
 }

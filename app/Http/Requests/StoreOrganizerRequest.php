@@ -26,6 +26,9 @@ class StoreOrganizerRequest extends FormRequest
             'name' => [
                 'required',
             ],
+            'description' => [
+                'nullable'
+            ],
             'website' => [
                 'nullable',
                 'active_url'

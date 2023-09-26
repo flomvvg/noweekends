@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArtistRequest;
+use App\Http\Requests\UpdateArtistRequest;
 use App\Models\Artist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,15 +56,20 @@ class ArtistController extends Controller
      */
     public function edit(Artist $artist)
     {
-        //
+        $this->authorize('edit', $artist);
+        return view('profiles.artists.edit', ['artist' => $artist]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Artist $artist)
+    public function update(UpdateArtistRequest $request, Artist $artist)
     {
-        //
+        $this->authorize('edit', $artist);
+        $artist->update($request->validated());
+        $users = $artist->users()->get();
+
+        return view('profiles.artists.show', ['organizer' => $artist, 'users' => $users]);
     }
 
     /**

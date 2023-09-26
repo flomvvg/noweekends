@@ -13,4 +13,9 @@ class ArtistPolicy
     {
         //
     }
+
+    public function edit(User $user): bool
+    {
+        return $user->artists()->exists();
+    }
 }

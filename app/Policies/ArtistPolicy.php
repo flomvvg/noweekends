@@ -13,14 +13,4 @@ class ArtistPolicy
     {
         //
     }
-
-    public function edit(User $user): bool
-    {
-        return $user->artists()->exists();
-    }
-
-    public function delete(User $user): bool
-    {
-        return $user->artists()->exists();
-    }
 }

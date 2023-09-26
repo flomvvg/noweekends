@@ -46,7 +46,8 @@ class ArtistController extends Controller
      */
     public function show(Artist $artist)
     {
-        //
+        $users = $artist->users()->get();
+        return view('profiles.artists.show', ['artist' => $artist, 'users' => $users]);
     }
 
     /**

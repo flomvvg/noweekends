@@ -51,7 +51,8 @@ class UserController extends Controller
         $user = User::find($id);
         $this->authorize('view', [$user]);
         $organizers = $user->organizers()->get();
-        return view('users.show', ['user' => $user, 'organizers' => $organizers]);
+        $artists = $user->artists()->get();
+        return view('users.show', ['user' => $user, 'organizers' => $organizers, 'artists' => $artists]);
     }
 
     /**

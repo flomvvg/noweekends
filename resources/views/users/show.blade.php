@@ -19,4 +19,14 @@
             @endif
         @endforeach
     </div>
+    <hr>
+    <h2>Artist Profiles</h2>
+    <div class="list-group">
+        @foreach($artists as $artist)
+            @if(!$artist->archived)
+                <a href="/artists/{{ $artist->id }}" class="list-group-item list-group-item-action">{{ $artist->name }}</a>
+            @endif
+        @endforeach
+    </div>
+
 </div>

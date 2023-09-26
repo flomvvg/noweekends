@@ -12,7 +12,7 @@
         @endforeach
     @endif
 
-    <h1>Create Organizer Profile</h1>
+    <h1>Create Artist Profile</h1>
     <form action="/artists" method="POST">
         @csrf
         <div class="form-group">

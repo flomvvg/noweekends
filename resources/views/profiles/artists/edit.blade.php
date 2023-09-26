@@ -13,10 +13,10 @@
     @endif
 
     <h1 class="d-inline-block">Edit Artist Profile</h1>
-    <form class="d-inline-block float-right" action="/artists/{{ $artist->id }}" METHOD="POST">
-        @csrf @method('DELETE')
-        <input class="btn btn-danger float-right" type="submit" name="submit" id="submit" value="Delete Profile">
-    </form>
+        <form class="d-inline-block float-right" action="/artists/{{ $artist->id }}" METHOD="POST">
+            @csrf @method('DELETE')
+            <input class="btn btn-danger float-right" type="submit" name="submit" id="submit" value="Delete Profile">
+        </form>
         <form action="/artists" method="POST">
         @csrf @method('PATCH')
         <div class="form-group">

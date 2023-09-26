@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\UserController;
@@ -29,3 +30,5 @@ Route::resource('organizers', OrganizerController::class);
 Route::get('/profiles/create', function (){
     return view('profiles.create');
 });
+Route::resource('artists', ArtistController::class);
+

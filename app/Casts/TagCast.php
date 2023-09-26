@@ -2,6 +2,7 @@
 
 namespace App\Casts;
 
+use App\Models\Artist;
 use App\Models\Organizer;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
@@ -34,8 +35,9 @@ class TagCast implements CastsAttributes
 
     private function isTagAvailable(string $tag): bool
     {
-        $tag = Organizer::where('tag', $tag)->first();
-        if ($tag === null) {
+        $organizerTag = Organizer::where('tag', $tag)->first();
+        $artistTag = Artist::where('tag', $tag)->first();
+        if ($organizerTag === null && $artistTag === null) {
             return true;
         }
 

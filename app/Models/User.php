@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Organizer::class);
     }
+
+    public function artists(): BelongsToMany
+    {
+        return $this->belongsToMany(Artist::class);
+    }
 }

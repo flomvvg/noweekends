@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArtistRequest;
 use App\Http\Requests\UpdateArtistRequest;
 use App\Models\Artist;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ArtistController extends Controller
 {
@@ -77,6 +79,21 @@ class ArtistController extends Controller
      */
     public function destroy(Artist $artist)
     {
-        //
+        $this->authorize('delete', $artist);
+        $dateTime = Carbon::now();
+        $name = Hash::make($artist->name);
+        $name = $name . $dateTime->toString();
+        $artist->name = "Deleted Artist [" . Hash::make($name) . "]";
+        $artist->description = null;
+        $artist->spotify = null;
+        $artist->soundcloud = null;
+        $artist->youtube = null;
+        $artist->amazon_music = null;
+        $artist->apple_music = null;
+        $artist->website = null;
+        $artist->archived = true;
+        $artist->save();
+
+        return to_route('users.show', Auth::user())->with('status', 'Your artist profile has been deleted');
     }
 }

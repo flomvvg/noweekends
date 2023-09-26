@@ -12,9 +12,13 @@
         @endforeach
     @endif
 
-    <h1>Edit Artist Profile</h1>
-    <form action="/artists" method="POST">
-        @csrf
+    <h1 class="d-inline-block">Edit Artist Profile</h1>
+    <form class="d-inline-block float-right" action="/artists/{{ $artist->id }}" METHOD="POST">
+        @csrf @method('DELETE')
+        <input class="btn btn-danger float-right" type="submit" name="submit" id="submit" value="Delete Profile">
+    </form>
+        <form action="/artists" method="POST">
+        @csrf @method('PATCH')
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" id="name" value="{{ $artist->name }}">

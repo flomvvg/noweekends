@@ -18,7 +18,6 @@ class ArtistPolicy
     {
         return $user->artists()->exists();
     }
-
     public function delete(User $user): bool
     {
         return $user->artists()->exists();

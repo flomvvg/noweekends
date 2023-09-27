@@ -28,5 +28,14 @@
             @endif
         @endforeach
     </div>
+    <hr>
+    <h2>Venue Profiles</h2>
+    <div class="list-group">
+        @foreach($venues as $venue)
+            @if(!$venue->archived)
+                <a href="/artists/{{ $venue->id }}" class="list-group-item list-group-item-action">{{ $venue->name }}</a>
+            @endif
+        @endforeach
+    </div>
 
 </div>

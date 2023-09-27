@@ -47,7 +47,8 @@ class VenueController extends Controller
      */
     public function show(Venue $venue)
     {
-        //
+        $users = $venue->users()->get();
+        return view('profiles.venues.show', ['venue' => $venue, 'users' => $users]);
     }
 
     /**

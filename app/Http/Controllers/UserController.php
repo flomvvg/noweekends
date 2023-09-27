@@ -52,7 +52,8 @@ class UserController extends Controller
         $this->authorize('view', [$user]);
         $organizers = $user->organizers()->get();
         $artists = $user->artists()->get();
-        return view('users.show', ['user' => $user, 'organizers' => $organizers, 'artists' => $artists]);
+        $venues = $user->venues()->get();
+        return view('users.show', ['user' => $user, 'organizers' => $organizers, 'artists' => $artists, 'venues' => $venues]);
     }
 
     /**

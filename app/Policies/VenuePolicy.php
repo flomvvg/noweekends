@@ -13,4 +13,9 @@ class VenuePolicy
     {
         //
     }
+
+    public function edit(User $user): bool
+    {
+        return $user->venues()->exists();
+    }
 }

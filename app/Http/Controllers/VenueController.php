@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVenueRequest;
+use App\Http\Requests\UpdateArtistRequest;
+use App\Http\Requests\UpdateVenueRequest;
 use App\Models\Venue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,15 +58,21 @@ class VenueController extends Controller
      */
     public function edit(Venue $venue)
     {
-        //
+        $this->authorize('edit', $venue);
+
+        return view('profiles.venues.edit', ['venue'=>$venue]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Venue $venue)
+    public function update(UpdateVenueRequest $request, Venue $venue)
     {
-        //
+        $this->authorize('edit', $venue);
+        $venue->update($request->validated());
+        $users = $venue->users()->get();
+
+        return view('profiles.venues.show', ['venue' => $venue, 'users' => $users]);
     }
 
     /**

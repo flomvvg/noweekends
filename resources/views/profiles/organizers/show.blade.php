@@ -7,14 +7,13 @@
             <a href="/organizers/{{ $organizer->id }}/edit"><button class="d-inline-block btn btn-primary float-right">Edit</button></a>
         @endif
     @endforeach
+    <hr>
+    @if($organizer->description != null)
     <h2>Description</h2>
-    @if($organizer->description == null)
-        <p>This organizer has not yet provided a description...</p>
+        <p>{{ $organizer->description }}</p>
     @endif
-    <p>{{ $organizer->description }}</p>
+    @if($organizer->website != null)
     <h2>Website</h2>
-    @if($organizer->website == null)
-        <p>This organizer has not yet provided a website...</p>
+        <p>{{ $organizer->website }}</p>
     @endif
-    <p>{{ $organizer->website }}</p>
 </div>

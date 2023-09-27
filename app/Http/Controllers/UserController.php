@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -46,9 +46,8 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        $user = User::find($id);
         $this->authorize('view', [$user]);
         $organizers = $user->organizers()->get();
         $artists = $user->artists()->get();
@@ -73,7 +72,7 @@ class UserController extends Controller
         $this->authorize('update', [$user]);
         $user->update($request->validated());
 
-        return to_route('users.show', ['user' => $user->id]);
+        return to_route('users.show', ['user' => $user->id])->with('status', 'Your user has been updated');
     }
 
     /**
@@ -91,6 +90,21 @@ class UserController extends Controller
         $email = Hash::make($user->email);
         $email = $email . $dateTime->toString();
         $email = Hash::make($email);
+
+        $organizers = $user->organizers()->get();
+        foreach ($organizers as $organizer) {
+            $organizer->users()->detach($user->id);
+        }
+
+        $venues = $user->venues()->get();
+        foreach ($venues as $venue) {
+            $venue->users()->detach($user->id);
+        }
+
+        $artists = $user->artists()->get();
+        foreach ($artists as $artist) {
+            $artist->users()->detach($user->id);
+        }
 
         $user->email = $email;
         $user->save();

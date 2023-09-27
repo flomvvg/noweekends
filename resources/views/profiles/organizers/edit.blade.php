@@ -2,12 +2,22 @@
 @include('base.nav')
 
 <div class="container">
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ $error }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endforeach
+    @endif
+
     <h1>Edit Organizer</h1>
     <form action="/organizers/{{ $organizer->id }}" method="POST">
-        @method('PATCH')
-        @csrf
+        @csrf @method('PATCH')
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Name</label><span class="text-danger"> *</span>
             <input class="form-control" type="text" name="name" id="name" value="{{ $organizer->name }}" />
         </div>
         <div class="form-group">
@@ -18,10 +28,10 @@
             <label for="website">Website</label>
             <input class="form-control" type="text" name="website" id="website">
         </div>
-        <button class="d-inline-block btn btn-primary" type="submit" name="submit" id="submit">Submit</button>
-        <form action="/organizers/{{ $organizer->id }}" METHOD="POST">
-            @csrf @method('DELETE')
-            <input class="btn btn-danger float-right" type="submit" name="submit" id="submit" value="Delete Profile">
-        </form>
+        <button class="btn btn-primary float-right" type="submit" name="submit" id="submit">Submit</button>
+    </form>
+    <form action="/organizers/{{ $organizer->id }}" METHOD="POST">
+        @csrf @method('DELETE')
+        <input class="btn btn-danger" type="submit" name="submit" id="submit" value="Delete Profile">
     </form>
 </div>

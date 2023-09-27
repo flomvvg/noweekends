@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArtistRequest;
 use App\Http\Requests\UpdateArtistRequest;
 use App\Models\Artist;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,7 +72,7 @@ class ArtistController extends Controller
         $artist->update($request->validated());
         $users = $artist->users()->get();
 
-        return view('profiles.artists.show', ['organizer' => $artist, 'users' => $users]);
+        return view('profiles.artists.show', ['organizer' => $artist, 'users' => $users])->with('status', 'Your user has been updated');
     }
 
     /**
@@ -80,11 +81,9 @@ class ArtistController extends Controller
     public function destroy(Artist $artist)
     {
         $this->authorize('delete', $artist);
-        $dateTime = Carbon::now();
-        $name = Hash::make($artist->name);
-        $name = $name . $dateTime->toString();
-        $artist->name = "Deleted Artist [" . Hash::make($name) . "]";
+        $artist->name = "[Deleted Artist]";
         $artist->description = null;
+        $artist->tag = "";
         $artist->spotify = null;
         $artist->soundcloud = null;
         $artist->youtube = null;
@@ -92,6 +91,7 @@ class ArtistController extends Controller
         $artist->apple_music = null;
         $artist->website = null;
         $artist->archived = true;
+        $artist->users()->detach(Auth::id());
         $artist->save();
 
         return to_route('users.show', Auth::user())->with('status', 'Your artist profile has been deleted');

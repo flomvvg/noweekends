@@ -3,7 +3,7 @@
 <div class="container">
     <h1 class="d-inline-block">{{ $venue->name }}</h1><h3 class="d-inline-block text-secondary">#{{ $venue->tag }}</h3>
     @foreach($users as $user)
-        @if($user->artists()->exists() && $user->id === Auth::id())
+        @if($user->venues()->exists() && $user->id === Auth::id())
             <a href="/venues/{{ $venue->id }}/edit"><button class="d-inline-block btn btn-primary float-right">Edit</button></a>
         @endif
     @endforeach

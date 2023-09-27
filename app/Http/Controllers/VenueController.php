@@ -74,7 +74,7 @@ class VenueController extends Controller
         $venue->update($request->validated());
         $users = $venue->users()->get();
 
-        return view('profiles.venues.show', ['venue' => $venue, 'users' => $users]);
+        return view('profiles.venues.show', ['venue' => $venue, 'users' => $users])->with('status', 'Your user has been updated');
     }
 
     /**
@@ -83,10 +83,7 @@ class VenueController extends Controller
     public function destroy(Venue $venue)
     {
         $this->authorize('delete', $venue);
-        $dateTime = Carbon::now();
-        $venueName = Hash::make($venue->name);
-        $venueName = $venueName . $dateTime->toString();
-        $venue->name = "Deleted Venue [" . Hash::make($venueName) . "]";
+        $venue->name = "[Deleted Venue]";
         $venue->description = null;
         $venue->tag = "";
         $venue->street = "";
@@ -95,6 +92,7 @@ class VenueController extends Controller
         $venue->city = "";
         $venue->archived = true;
         $venue->website = null;
+        $venue->users()->detach(Auth::id());
         $venue->save();
 
         return to_route('users.show', Auth::user())->with('status', 'Your venue profile has been deleted');

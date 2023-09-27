@@ -12,15 +12,11 @@
         @endforeach
     @endif
 
-    <h1 class="d-inline-block">Edit Artist Profile</h1>
-        <form class="d-inline-block float-right" action="/artists/{{ $artist->id }}" METHOD="POST">
-            @csrf @method('DELETE')
-            <input class="btn btn-danger float-right" type="submit" name="submit" id="submit" value="Delete Profile">
-        </form>
+    <h1>Edit Artist Profile</h1>
         <form action="/artists" method="POST">
         @csrf @method('PATCH')
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Name</label><span class="text-danger"> *</span>
             <input type="text" class="form-control" name="name" id="name" value="{{ $artist->name }}">
         </div>
         <div class="form-group">
@@ -51,7 +47,10 @@
             <label for="website">Website</label>
             <input class="form-control" type="text" name="website" id="website" value="{{ $artist->website }}">
         </div>
-        <input type="hidden" name="tag" id="tag" value="test">
-        <input type="submit" class="btn btn-primary" value="Submit" />
+        <input type="submit" class="btn btn-primary float-right" value="Submit" />
+    </form>
+    <form action="/artists/{{ $artist->id }}" METHOD="POST">
+        @csrf @method('DELETE')
+        <input class="btn btn-danger" type="submit" name="submit" id="submit" value="Delete Profile">
     </form>
 </div>

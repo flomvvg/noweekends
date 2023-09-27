@@ -75,7 +75,7 @@ class OrganizerController extends Controller
         $organizer->update($request->validated());
         $users = $organizer->users()->get();
 
-        return view('profiles.organizers.show', ['organizer' => $organizer, 'users' => $users]);
+        return view('profiles.organizers.show', ['organizer' => $organizer, 'users' => $users])->with('status', 'Your user has been updated');
     }
 
     /**
@@ -84,13 +84,12 @@ class OrganizerController extends Controller
     public function destroy(Organizer $organizer): RedirectResponse
     {
         $this->authorize('delete', $organizer);
-        $dateTime = Carbon::now();
-        $userName = Hash::make($organizer->name);
-        $userName = $userName . $dateTime->toString();
-        $organizer->name = "Deleted Organizer [" . Hash::make($userName) . "]";
+        $organizer->name = "[Deleted Organizer]";
+        $organizer->tag = "";
         $organizer->description = null;
         $organizer->website = null;
         $organizer->archived = true;
+        $organizer->users()->detach(Auth::id());
         $organizer->save();
 
         return to_route('users.show', Auth::user())->with('status', 'Your organizer profile has been deleted');

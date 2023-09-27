@@ -6,8 +6,10 @@ use App\Http\Requests\StoreVenueRequest;
 use App\Http\Requests\UpdateArtistRequest;
 use App\Http\Requests\UpdateVenueRequest;
 use App\Models\Venue;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class VenueController extends Controller
 {
@@ -80,6 +82,21 @@ class VenueController extends Controller
      */
     public function destroy(Venue $venue)
     {
-        //
+        $this->authorize('delete', $venue);
+        $dateTime = Carbon::now();
+        $venueName = Hash::make($venue->name);
+        $venueName = $venueName . $dateTime->toString();
+        $venue->name = "Deleted Venue [" . Hash::make($venueName) . "]";
+        $venue->description = null;
+        $venue->tag = "";
+        $venue->street = "";
+        $venue->number = "";
+        $venue->zip = 0000;
+        $venue->city = "";
+        $venue->archived = true;
+        $venue->website = null;
+        $venue->save();
+
+        return to_route('users.show', Auth::user())->with('status', 'Your venue profile has been deleted');
     }
 }

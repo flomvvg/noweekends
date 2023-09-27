@@ -11,9 +11,12 @@
             </div>
         @endforeach
     @endif
-
-    <h1>Edit Venue Profile</h1>
-    <form action="/venues/{{ $venue->id }}" method="POST">
+        <h1 class="d-inline">Edit Venue Profile</h1>
+            <form class="float-right" action="/venues/{{ $venue->id }}" METHOD="POST">
+                @csrf @method('DELETE')
+                <input class="btn btn-danger float-right" type="submit" name="submit" id="submit" value="Delete Profile">
+            </form>
+        <form action="/venues/{{ $venue->id }}" method="POST">
         @csrf @method('PATCH')
         <div class="form-group">
             <label for="name">Name</label>

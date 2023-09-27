@@ -18,4 +18,10 @@ class VenuePolicy
     {
         return $user->venues()->exists();
     }
+
+    public function delete(User $user): bool
+    {
+        return $user->venues()->exists();
+
+    }
 }

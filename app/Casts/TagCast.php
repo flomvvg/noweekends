@@ -4,6 +4,7 @@ namespace App\Casts;
 
 use App\Models\Artist;
 use App\Models\Organizer;
+use App\Models\Venue;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,7 +38,8 @@ class TagCast implements CastsAttributes
     {
         $organizerTag = Organizer::where('tag', $tag)->first();
         $artistTag = Artist::where('tag', $tag)->first();
-        if ($organizerTag === null && $artistTag === null) {
+        $venueTag = Venue::where('tag', $tag)->first();
+        if ($organizerTag === null && $artistTag === null && $venueTag === null) {
             return true;
         }
 

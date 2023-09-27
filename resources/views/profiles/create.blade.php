@@ -18,4 +18,13 @@
             <a href="/artists/create"><button class="btn btn-primary">Create Artist Profile</button></a>
         </div>
     </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Venue</h5>
+            <p>Venues host events from organizers. They provide the needed location and infrastructure for the event</p>
+            <a href="/venues/create"><button class="btn btn-primary">Create Venue Profile</button></a>
+        </div>
+    </div>
+
 </div>

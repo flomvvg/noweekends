@@ -25,6 +25,7 @@ class Artist extends Model
         'amazon_music',
         'apple_music',
         'website',
+        'archived'
     ];
 
     protected $casts = [
@@ -34,5 +35,10 @@ class Artist extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function events(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class);
     }
 }

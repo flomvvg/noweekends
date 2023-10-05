@@ -6,6 +6,7 @@ use App\Casts\TagCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Venue extends Model
 {
@@ -23,6 +24,7 @@ class Venue extends Model
         'zip',
         'city',
         'website',
+        'archived'
     ];
 
     protected $casts = [
@@ -32,5 +34,10 @@ class Venue extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class);
     }
 }

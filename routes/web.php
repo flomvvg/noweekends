@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\UserController;
@@ -30,7 +31,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::resource('organizers', OrganizerController::class);
 Route::get('/profiles/create', function (){
     return view('profiles.create');
-});
+})->name('profiles.create');
 Route::resource('artists', ArtistController::class);
 Route::resource('venues', VenueController::class);
+Route::resource('events', EventController::class);
 

@@ -113,7 +113,26 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        $organizerProfileType = new("App\\Models\\" . ucfirst($event->organizer_profile_type));
+        $organizer = $organizerProfileType::find($event->organizer_profile_id)->first();
+
+        $genre = $event->genre()->first();
+        if ($event->venue_registered) {
+            $venue = $event->venue()->first();
+        }
+        $artists = $event->artists()->get();
+        $artists = $artists->sortBy(['name', 'asc']);
+        $unregisteredArtists = $event->unregisteredArtists()->get();
+        $unregisteredArtists = $unregisteredArtists->sortBy(['name', 'asc']);
+
+        return view('events.show', [
+            'event' => $event,
+            'organizer' => $organizer,
+            'genre' => $genre,
+            'venue' => $venue,
+            'artists' => $artists,
+            'unregisteredArtists' => $unregisteredArtists
+            ]);
     }
 
     /**

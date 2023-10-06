@@ -72,7 +72,7 @@ class ArtistController extends Controller
         $artist->update($request->validated());
         $users = $artist->users()->get();
 
-        return view('profiles.artists.show', ['organizer' => $artist, 'users' => $users])->with('status', 'Your user has been updated');
+        return view('profiles.artists.show', ['artist' => $artist, 'users' => $users])->with('status', 'Your user has been updated');
     }
 
     /**

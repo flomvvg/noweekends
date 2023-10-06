@@ -13,7 +13,7 @@
     @endif
 
     <h1>Edit Artist Profile</h1>
-        <form action="/artists" method="POST">
+        <form action="/artists/{{ $artist->id }}" method="POST">
         @csrf @method('PATCH')
         <div class="form-group">
             <label for="name">Name</label><span class="text-danger"> *</span>

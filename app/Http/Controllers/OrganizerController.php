@@ -52,8 +52,16 @@ class OrganizerController extends Controller
      */
     public function show(Organizer $organizer)
     {
+        $upcomingEvents = $organizer->getUpcomingEvents();
+        $pastEvents = $organizer->getPastEvents();
+
         $users = $organizer->users()->get();
-        return view('profiles.organizers.show', ['organizer' => $organizer, 'users' => $users]);
+        return view('profiles.organizers.show', [
+            'organizer' => $organizer,
+            'users' => $users,
+            'pastEvents' => $pastEvents,
+            'upcomingEvents' => $upcomingEvents,
+        ]);
     }
 
     /**

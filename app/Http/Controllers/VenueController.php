@@ -51,8 +51,16 @@ class VenueController extends Controller
      */
     public function show(Venue $venue)
     {
+        $upcomingEvents = $venue->getUpcomingEvents();
+        $pastEvents = $venue->getPastEvents();
+
         $users = $venue->users()->get();
-        return view('profiles.venues.show', ['venue' => $venue, 'users' => $users]);
+        return view('profiles.venues.show', [
+            'venue' => $venue,
+            'users' => $users,
+            'pastEvents' => $pastEvents,
+            'upcomingEvents' => $upcomingEvents,
+        ]);
     }
 
     /**

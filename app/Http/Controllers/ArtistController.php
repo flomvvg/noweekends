@@ -50,8 +50,16 @@ class ArtistController extends Controller
      */
     public function show(Artist $artist)
     {
+        $upcomingEvents = $artist->getUpcomingEvents();
+        $pastEvents = $artist->getPastEvents();
+
         $users = $artist->users()->get();
-        return view('profiles.artists.show', ['artist' => $artist, 'users' => $users]);
+        return view('profiles.artists.show', [
+            'artist' => $artist,
+            'users' => $users,
+            'upcomingEvents' => $upcomingEvents,
+            'pastEvents' => $pastEvents,
+        ]);
     }
 
     /**

@@ -11,7 +11,9 @@ use App\Models\Organizer;
 use App\Models\UnregisteredArtist;
 use App\Models\Venue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class EventController extends Controller
 {
@@ -23,9 +25,12 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $events = Event::where('end_date', '>', Carbon::now())->orderBy('end_date')->simplePaginate(15);
+        return view('events.index', [
+            'events' => $events,
+        ]);
     }
 
     /**

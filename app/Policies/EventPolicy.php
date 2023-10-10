@@ -22,4 +22,12 @@ class EventPolicy
 
         return $organizer->users()->exists();
     }
+
+    public function delete(User $user, Event $event): bool
+    {
+        $organizerProfileType = new("App\\Models\\" . ucfirst($event->organizer_profile_type));
+        $organizer = $organizerProfileType::find($event->organizer_profile_id);
+
+        return $organizer->users()->exists();
+    }
 }

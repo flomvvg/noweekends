@@ -230,6 +230,9 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->cancelled = !$event->cancelled;
+        $event->save();
+
+        return to_route('events.show', $event);
     }
 }

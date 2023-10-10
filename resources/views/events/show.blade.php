@@ -2,6 +2,11 @@
 @include('base.base')
 @include('base.nav')
 <div class="container">
+    @if($event->cancelled)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            This Event has been cancelled
+        </div>
+    @endif
     <h1 class="d-inline-block">{{ $event->name }}</h1>
     @if(!Auth::guest())
         @foreach($organizer->users()->get() as $user)

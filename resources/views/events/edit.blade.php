@@ -13,7 +13,7 @@
         @endforeach
     @endif
     <h1>Create Event</h1>
-    <form action="/events/{{ $event->id }}" method="POST">
+    <form class="d-inline" action="/events/{{ $event->id }}" method="POST">
         @csrf @method('PATCH')
         <hr>
         <h2>Event Info</h2>
@@ -29,11 +29,7 @@
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea class="form-control" name="description" id="description" cols="30"
-                          rows="10">@if(old('description') != null)
-                        {{ old('description') }}
-                    @else
-                        {{ $event->description }}
-                    @endif</textarea>
+                          rows="10">@if(old('description') != null){{ old('description') }}@else{{ $event->description }}@endif</textarea>
             </div>
         </div>
         <br>
@@ -499,8 +495,20 @@
                 @endif
             </div>
         </div>
+        <br>
+        <hr>
+        <br>
         <input class="btn btn-primary" type="submit" name="submit" id="submit" value="Submit">
     </form>
+        <form class=" float-end" action="/events/{{ $event->id }}" method="POST">
+            @csrf @method('DELETE')
+            @if($event->cancelled)
+                <input class="btn btn-success" type="submit" name="submit" id="submit" value="Re-publish Event">
+            @else
+                <input class="btn btn-danger" type="submit" name="submit" id="submit" value="Cancel Event">
+            @endif
+        </form>
+
 </div>
 <script>
 

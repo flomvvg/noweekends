@@ -6,7 +6,7 @@ use App\Rules\TagExists;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEventRequest extends FormRequest
+class UpdateEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -100,7 +100,7 @@ class StoreEventRequest extends FormRequest
             ],
             'oneway' => [
             ],
-            'registered_artists_tags' => [
+            'registered_artists' => [
                 'nullable'
             ],
             'unregistered_artists' => [

@@ -1,15 +1,19 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 @include('base.base')
 @include('base.nav')
 <div class="container">
-    <h1 class="d-inline-block">{{ $artist->name }}</h1><h3 class="d-inline-block text-secondary">#{{ $artist->tag }}</h3>
+    <h1 class="d-inline-block">{{ $artist->name }}</h1>
+    <h3 class="d-inline-block text-secondary">#{{ $artist->tag }}</h3>
     @foreach($users as $user)
         @if($user->artists()->exists() && $user->id === Auth::id())
-            <a href="/artists/{{ $artist->id }}/edit"><button class="d-inline-block btn btn-primary float-right">Edit</button></a>
+            <a href="/artists/{{ $artist->id }}/edit">
+                <button class="d-inline-block btn btn-primary float-right">Edit</button>
+            </a>
         @endif
     @endforeach
     <hr>
     @if($artist->description != null)
-    <h3>Description</h3>
+        <h3>Description</h3>
         <p>{{ $artist->description }}</p>
     @endif
 
@@ -38,7 +42,7 @@
         <a href="{{ $artist->apple_music }}"><p>{{ $artist->apple_music }}</p></a>
     @endif
     @if($artist->website != null)
-    <h3>Website</h3>
+        <h3>Website</h3>
         <p>{{ $artist->website }}</p>
     @endif
     <h2>Upcoming Events</h2>

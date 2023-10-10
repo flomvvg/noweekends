@@ -1,7 +1,17 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 @include('base.base')
 @include('base.nav')
 <div class="container">
-    <h1>{{ $event->name }}</h1>
+    <h1 class="d-inline-block">{{ $event->name }}</h1>
+    @if(!Auth::guest())
+        @foreach($organizer->users()->get() as $user)
+            @if($user->id === Auth::id())
+                <a href="/events/{{ $event->id }}/edit">
+                    <button class="d-inline-block btn btn-primary float-end">Edit</button>
+                </a>
+            @endif
+        @endforeach
+    @endif
     <p><b></b>{{ $event->start_date }} at {{ $event->start_time }} - {{ $event->end_date }} at {{ $event->end_time }}</p>
     <div class="row">
         <h3>Event Info</h3>
@@ -25,7 +35,8 @@
         <div class="col-4">
             <p><b>Presale: </b>
                 @if($event->presale_available)
-                    <a class="link-opacity-25-hover" target="_blank" href="{{ $event->presale_link }}">{{ ucfirst(parse_url($event->presale_link)['host']) }}</a>
+                    <a class="link-opacity-25-hover" target="_blank"
+                       href="{{ $event->presale_link }}">{{ ucfirst(parse_url($event->presale_link)['host']) }}</a>
                 @else
                     No Presale Available
                 @endif</p>
@@ -35,9 +46,9 @@
                     No Box Office Available
                 @endif
             </p>
-                 @if (!empty($event->facebook_event))
-                    <p><a href="{{ $event->facebook_event }}">Facebook Event</a></p>
-                @endif
+            @if (!empty($event->facebook_event))
+                <p><a href="{{ $event->facebook_event }}">Facebook Event</a></p>
+            @endif
         </div>
     </div>
     <br>

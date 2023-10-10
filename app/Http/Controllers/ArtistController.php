@@ -78,9 +78,8 @@ class ArtistController extends Controller
     {
         $this->authorize('edit', $artist);
         $artist->update($request->validated());
-        $users = $artist->users()->get();
 
-        return view('profiles.artists.show', ['artist' => $artist, 'users' => $users])->with('status', 'Your user has been updated');
+        return to_route('artists.show', $artist)->with('status', 'Your user has been updated');
     }
 
     /**

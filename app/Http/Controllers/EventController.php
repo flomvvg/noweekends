@@ -167,8 +167,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        $organizerProfileType = new("App\\Models\\" . ucfirst($event->organizer_profile_type));
-        $organizer = $organizerProfileType::find($event->organizer_profile_id)->first();
+        $organizer = $event->organizerProfile();
 
         $genre = $event->genre()->first();
         $venue = null;
@@ -200,8 +199,7 @@ class EventController extends Controller
         $userProfiles = $userProfiles->concat($user->venues()->get());
         $userProfiles = $userProfiles->concat($user->artists()->get());
 
-        $organizerProfileType = new("App\\Models\\" . ucfirst($event->organizer_profile_type));
-        $eventOrganizer = $organizerProfileType::find($event->organizer_profile_id);
+        $organizer = $event->organizerProfile();
 
 
         $this->authorize('edit', $event);
@@ -211,7 +209,7 @@ class EventController extends Controller
             'userProfiles' => $userProfiles,
             'venues' => Venue::all(),
             'artists' => Artist::all(),
-            'eventOrganizer' => $eventOrganizer,
+            'eventOrganizer' => $organizer,
             ]);
     }
 

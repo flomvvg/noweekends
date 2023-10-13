@@ -14,7 +14,7 @@
     <hr>
     @if($artist->description != null)
         <h3>Description</h3>
-        <p>{{ $artist->description }}</p>
+        <p>{!! $artist->description !!}</p>
     @endif
 
     @if($artist->spotify != null)

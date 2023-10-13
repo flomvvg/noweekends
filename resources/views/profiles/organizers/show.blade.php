@@ -10,7 +10,7 @@
     <hr>
     @if($organizer->description != null)
     <h2>Description</h2>
-        <p>{{ $organizer->description }}</p>
+        <p>{!! $organizer->description !!}</p>
     @endif
     @if($organizer->website != null)
     <h2>Website</h2>

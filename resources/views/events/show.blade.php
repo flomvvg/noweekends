@@ -60,7 +60,7 @@
     <div class="row">
         <h3>Description</h3>
         <hr>
-        <p>{{ $event->description }}</p>
+        <p>{!! nl2br(e($event->description)) !!} </p>
     </div>
     <br>
     <div class="row">

@@ -9,7 +9,7 @@
     @endforeach
     @if($venue->description != null)
         <h2>Description</h2>
-        <p>{{ $venue->description }}</p>
+        <p>{!! $venue->description !!}</p>
     @endif
     <hr>
     <h2>Address</h2>

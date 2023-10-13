@@ -194,14 +194,15 @@
             <div class="form-group">
                 <div class="form-check form-switch">
                     <label for="venue_registered">Venue Registered?</label>
-                    <input onchange="changeReadOnly([
-                    'venue_name',
-                    'venue_street',
-                    'venue_number',
-                    'venue_zip',
-                    'venue_city',
-                    'venue_set_button'
-                    ]); changeDisabled('venue')" class="form-check-input" type="checkbox" name="venue_registered" id="venue_registered" checked>
+                    <input onchange=" changeDisabled('venue');
+                    changeReadOnly([
+                        'venue_name',
+                        'street',
+                        'number',
+                        'zip',
+                        'city',
+                        'venue_set_button'
+                    ]);" class="form-check-input" type="checkbox" name="venue_registered" id="venue_registered" checked>
                 </div>
             </div>
         </div>
@@ -231,28 +232,28 @@
         <br>
         <div class="col-auto row">
             <div class="form-group col-10">
-                <label for="venue_street">Street</label>
-                <input class="form-control" type="text" name="venue_street" id="venue_street"
-                       value="{{ old('venue_street') }}" readonly>
+                <label for="street">Street</label>
+                <input class="form-control" type="text" name="street" id="street"
+                       value="{{ old('street') }}" readonly>
             </div>
             <div class="form-group col-2">
-                <label for="venue_number">Number</label>
-                <input class="form-control" type="text" name="venue_number" id="venue_number"
-                       value="{{ old('venue_number') }}" readonly>
+                <label for="number">Number</label>
+                <input class="form-control" type="text" name="number" id="number"
+                       value="{{ old('number') }}" readonly>
             </div>
         </div>
         <br>
         <div class="col-auto row">
             <div class="form-group col-2">
-                <label for="venue_zip">ZIP</label>
-                <input class="form-control" type="number" name="venue_zip" id="venue_zip"
-                       value="{{ old('venue_zip') }}" readonly>
+                <label for="zip">ZIP</label>
+                <input class="form-control" type="number" name="zip" id="zip"
+                       value="{{ old('zip') }}" readonly>
             </div>
             <br>
             <div class="form-group col-10">
-                <label for="venue_city">City</label><span class="text-danger"> *</span>
-                <input class="form-control" type="text" name="venue_city" id="venue_city"
-                       value="{{ old('venue_city') }}" readonly>
+                <label for="city">City</label><span class="text-danger"> *</span>
+                <input class="form-control" type="text" name="city" id="city"
+                       value="{{ old('city') }}" readonly>
                 <div id="onewayHelpOn" class="form-text">Only required if venue is not registered</div>
             </div>
         </div>
@@ -504,23 +505,8 @@ function changeReadOnly(id) {
 }
 
 function changeDisabled(id) {
-    if (!Array.isArray(id)) {
-        const element = document.getElementById(id);
-        element.disabled = !element.disabled;
-        var isInput = element instanceof HTMLInputElement;
-        if (isInput) {
-            element.value = "";
-        }
-        return;
-    }
-    id.forEach((element) => {
-        element = document.getElementById(element);
-        element.disabled = !element.disabled;
-        var isInput = element instanceof HTMLInputElement;
-        if (isInput) {
-            element.value = "";
-        }
-    });
+    const element = document.getElementById(id);
+    element.disabled = !element.disabled;
 }
 
 

@@ -236,7 +236,7 @@ class EventController extends Controller
         }
 
         $validated['venue_id'] = null;
-        if (!empty($validated['venue_registered'])) {
+        if ($request->filled('venue_registered')) {
             $validated['venue_registered'] = true;
             $venue = Venue::where('tag', $validated['venue'])->first();
             $validated['venue_id'] = $venue->id;

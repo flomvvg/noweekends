@@ -80,22 +80,22 @@ class UpdateEventRequest extends FormRequest
                 'nullable'
             ],
             'venue' => [
-                'required_if:venue_registered,on',
+                'required_with:venue_registered',
                 'exists:venues,tag'
             ],
             'venue_name' => [
                 'nullable'
             ],
-            'venue_street' => [
+            'street' => [
                 'nullable'
             ],
-            'venue_number' => [
+            'number' => [
                 'nullable'
             ],
-            'venue_zip' => [
+            'zip' => [
                 'nullable'
             ],
-            'venue_city' => [
+            'city' => [
                 'required_without:venue_registered'
             ],
             'oneway' => [

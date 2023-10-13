@@ -214,14 +214,15 @@
             <div class="form-group">
                 <div class="form-check form-switch">
                     <label for="venue_registered">Venue Registered?</label>
-                    <input onchange="changeReadOnly([
+                    <input onchange="changeDisabled('venue');
+                    changeReadOnly([
                     'venue_name',
-                    'venue_street',
-                    'venue_number',
-                    'venue_zip',
-                    'venue_city',
+                    'street',
+                    'number',
+                    'zip',
+                    'city',
                     'venue_set_button'
-                    ]); changeDisabled('venue')" class="form-check-input" type="checkbox" name="venue_registered"
+                    ]); " class="form-check-input" type="checkbox" name="venue_registered"
                            id="venue_registered" @if($event->venue_registered) checked @endif>
                 </div>
             </div>
@@ -264,24 +265,24 @@
         <br>
         <div class="col-auto row">
             <div class="form-group col-10">
-                <label for="venue_street">Street</label>
-                <input class="form-control" type="text" name="venue_street" id="venue_street"
+                <label for="street">Street</label>
+                <input class="form-control" type="text" name="street" id="street"
                        @if($event->venue_registered)
-                           value="@if(old('venue_street') != null){{ old('venue_street') }}@else{{ Venue::find($event->venue_id)->street }}@endif"
+                           value="@if(old('street') != null){{ old('street') }}@else{{ Venue::find($event->venue_id)->street }}@endif"
                        readonly
                        @else
-                           value="@if(old('venue_street') != null){{ old('venue_street') }}@else{{ $event->street }}@endif"
+                           value="@if(old('street') != null){{ old('street') }}@else{{ $event->street }}@endif"
                     @endif
                 >
             </div>
             <div class="form-group col-2">
-                <label for="venue_number">Number</label>
-                <input class="form-control" type="text" name="venue_number" id="venue_number"
+                <label for="number">Number</label>
+                <input class="form-control" type="text" name="number" id="number"
                        @if($event->venue_registered)
-                           value="@if(old('venue_number') != null){{ old('venue_number') }}@else{{ Venue::find($event->venue_id)->number }}@endif"
+                           value="@if(old('number') != null){{ old('number') }}@else{{ Venue::find($event->venue_id)->number }}@endif"
                        readonly
                        @else
-                           value="@if(old('venue_number') != null){{ old('venue_number') }}@else{{ $event->number }}@endif"
+                           value="@if(old('number') != null){{ old('number') }}@else{{ $event->number }}@endif"
                     @endif
                 >
             </div>
@@ -289,25 +290,25 @@
         <br>
         <div class="col-auto row">
             <div class="form-group col-2">
-                <label for="venue_zip">ZIP</label>
-                <input class="form-control" type="number" name="venue_zip" id="venue_zip"
+                <label for="zip">ZIP</label>
+                <input class="form-control" type="number" name="zip" id="zip"
                        @if($event->venue_registered)
-                           value="@if(old('venue_zip') != null){{ old('venue_zip') }}@else{{ Venue::find($event->venue_id)->zip }}@endif"
+                           value="@if(old('zip') != null){{ old('zip') }}@else{{ Venue::find($event->venue_id)->zip }}@endif"
                        readonly
                        @else
-                           value="@if(old('venue_zip') != null){{ old('venue_zip') }}@else{{ $event->zip }}@endif"
+                           value="@if(old('zip') != null){{ old('zip') }}@else{{ $event->zip }}@endif"
                     @endif
                 >
             </div>
             <br>
             <div class="form-group col-10">
-                <label for="venue_city">City</label><span class="text-danger"> *</span>
-                <input class="form-control" type="text" name="venue_city" id="venue_city"
+                <label for="city">City</label><span class="text-danger"> *</span>
+                <input class="form-control" type="text" name="city" id="city"
                        @if($event->venue_registered)
-                           value="@if(old('venue_city') != null){{ old('venue_city') }}@else{{ Venue::find($event->venue_id)->city }}@endif"
+                           value="@if(old('city') != null){{ old('city') }}@else{{ Venue::find($event->venue_id)->city }}@endif"
                        readonly
                        @else
-                           value="@if(old('venue_city') != null){{ old('venue_city') }}@else{{ $event->city }}@endif"
+                           value="@if(old('city') != null){{ old('city') }}@else{{ $event->city }}@endif"
                     @endif
                 >
                 <div id="onewayHelpOn" class="form-text">Only required if venue is not registered</div>
@@ -609,7 +610,6 @@
         }
         const tag = artistFQDN.substring(artistFQDN.length - 4);
         const name = artistFQDN.substring(0, artistFQDN.length - 5);
-        console.log(name);
 
         var input = document.createElement("input");
         input.type = "text";
@@ -681,23 +681,8 @@
     }
 
     function changeDisabled(id) {
-        if (!Array.isArray(id)) {
-            const element = document.getElementById(id);
-            element.disabled = !element.disabled;
-            var isInput = element instanceof HTMLInputElement;
-            if (isInput) {
-                element.value = "";
-            }
-            return;
-        }
-        id.forEach((element) => {
-            element = document.getElementById(element);
-            element.disabled = !element.disabled;
-            var isInput = element instanceof HTMLInputElement;
-            if (isInput) {
-                element.value = "";
-            }
-        });
+        const element = document.getElementById(id);
+        element.disabled = !element.disabled;
     }
 
 

@@ -47,7 +47,7 @@
             <label for="website">Website</label>
             <input class="form-control" type="text" name="website" id="website" value="{{ $artist->website }}">
         </div>
-        <input type="submit" class="btn btn-primary float-right" value="Submit" />
+        <input type="submit" class="btn btn-primary float-end" value="Submit" />
     </form>
     <form action="/artists/{{ $artist->id }}" METHOD="POST">
         @csrf @method('DELETE')

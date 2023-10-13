@@ -28,7 +28,7 @@
             <label for="website">Website</label>
             <input class="form-control" type="text" name="website" id="website">
         </div>
-        <button class="btn btn-primary float-right" type="submit" name="submit" id="submit">Submit</button>
+        <button class="btn btn-primary float-end" type="submit" name="submit" id="submit">Submit</button>
     </form>
     <form action="/organizers/{{ $organizer->id }}" METHOD="POST">
         @csrf @method('DELETE')

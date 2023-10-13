@@ -7,7 +7,7 @@
     @foreach($users as $user)
         @if($user->artists()->exists() && $user->id === Auth::id())
             <a href="/artists/{{ $artist->id }}/edit">
-                <button class="d-inline-block btn btn-primary float-right">Edit</button>
+                <button class="d-inline-block btn btn-primary float-end">Edit</button>
             </a>
         @endif
     @endforeach

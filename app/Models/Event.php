@@ -73,6 +73,6 @@ class Event extends Model
     public function organizerProfile(): Artist|Venue|Organizer
     {
         $organizerProfileType = new("App\\Models\\" . ucfirst($this->organizer_profile_type));
-        return $organizerProfileType::find($this->organizer_profile_id)->first();
+        return $organizerProfileType::find($this->organizer_profile_id);
     }
 }

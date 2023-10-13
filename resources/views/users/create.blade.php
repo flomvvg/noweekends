@@ -3,16 +3,6 @@
 <div class="container">
     <h1>Create User</h1>
     <br>
-    @if($errors->any())
-        @foreach($errors->all() as $error)
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ $error }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endforeach
-    @endif
     <form action="/users" method="POST">
         @csrf
         <div class="form-group">

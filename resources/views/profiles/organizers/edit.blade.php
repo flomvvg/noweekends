@@ -2,17 +2,6 @@
 @include('base.nav')
 
 <div class="container">
-    @if($errors->any())
-        @foreach($errors->all() as $error)
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ $error }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endforeach
-    @endif
-
     <h1>Edit Organizer</h1>
     <form action="/organizers/{{ $organizer->id }}" method="POST">
         @csrf @method('PATCH')

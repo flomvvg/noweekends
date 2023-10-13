@@ -36,6 +36,7 @@
         <div class="col-4">
             <p><b>Genre: </b> {{ $genre->name }}</p>
             <p><b>Minimum Age: </b>{{ $event->minimum_age }}</p>
+            <p><b>Organizer: </b><a href="/{{ $event->organizer_profile_type . "s"}}/{{ $event->organizerProfile()->id }}">{{ $event->organizerProfile()->name }}</a></p>
         </div>
         <div class="col-4">
             <p><b>Presale: </b>

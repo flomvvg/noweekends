@@ -13,12 +13,12 @@
                         <div class="col-2">
                             <label for="end_date">At or After:</label>
                             <input class="form-control" type="date" name="end_date" id="end_date"
-                                   value="{{ $filter['end_date'] }}">
+                                   value="@if(!empty($filter['end_date'])) {{ $filter['end_date'] }}@endif">
                         </div>
                         <div class="col-2">
                             <label for="genre">Genre</label>
                             <input class="form-control" name="genre" id="genre" list="genreList"
-                            value="{{ $filter['genre'] }}">
+                            value="@if(!empty($filter['genre'])) {{ $filter['genre'] }}@endif">
                             <datalist id="genreList">
                                 @foreach($genres as $genre)
                                     <option value="{{ $genre->name }}"></option>
@@ -29,47 +29,47 @@
                             <label for="weather_condition">Weather Condition</label>
                             <select class="form-select form-control" name="weather_condition" id="weather_condition">
                                 <option value="">--- Select ---</option>
-                                <option value="Indoor" @if($filter['weather_condition'] == 'Indoor') selected @endif>Indoor</option>
-                                <option value="Outdoor" @if($filter['weather_condition'] == 'Outdoor') selected @endif>Outdoor</option>
-                                <option value="Indoor & Outdoor" @if($filter['weather_condition'] == 'Indoor & Outdoor') selected @endif>Indoor & Outdoor</option>
+                                <option value="Indoor" @if(!empty($filter['weather_condition']) && $filter['weather_condition'] == 'Indoor') selected @endif>Indoor</option>
+                                <option value="Outdoor" @if(!empty($filter['weather_condition']) && $filter['weather_condition'] == 'Outdoor') selected @endif>Outdoor</option>
+                                <option value="Indoor & Outdoor" @if(!empty($filter['weather_condition']) && $filter['weather_condition'] == 'Indoor & Outdoor') selected @endif>Indoor & Outdoor</option>
                             </select>
                         </div>
                         <div class="col-2">
                             <label for="type">Type</label>
                             <select class="form-select form-control" id="type" name="type">
                                 <option value="">--- Select ---</option>
-                                <option value="Party" @if($filter['type'] == 'Party') selected @endif>Party</option>
-                                <option value="Festival" @if($filter['type'] == 'Festival') selected @endif>Festival</option>
-                                <option value="Daydance" @if($filter['type'] == 'Daydance') selected @endif>Daydance</option>
-                                <option value="Concert" @if($filter['type'] == 'Concert') selected @endif>Concert</option>
+                                <option value="Party" @if(!empty($filter['type']) && $filter['type'] == 'Party') selected @endif>Party</option>
+                                <option value="Festival" @if(!empty($filter['type']) && $filter['type'] == 'Festival') selected @endif>Festival</option>
+                                <option value="Daydance" @if(!empty($filter['type']) && $filter['type'] == 'Daydance') selected @endif>Daydance</option>
+                                <option value="Concert" @if(!empty($filter['type']) && $filter['type'] == 'Concert') selected @endif>Concert</option>
                             </select>
                         </div>
                         <div class="col-2">
                             <label for="city">City</label>
                             <input class="form-control" type="text" name="city" id="city"
-                                   value="{{ $filter['city'] }}">
+                                   value="@if(!empty($filter['city'])) {{ $filter['city'] }}@endif">
                         </div>
                     </div>
                     <div class="row col-auto pb-2">
                         <div class="form-group col-1">
                             <label for="minimum_age">Age From</label>
                             <input min="0" class="form-control" type="number" name="minimum_age" id="minimum_age"
-                            value="{{ $filter['minimum_age'] }}">
+                            value="@if(!empty($filter['minimum_age'])) {{ $filter['minimum_age'] }}@endif">
                         </div>
                         <div class="col-1">
                             <label for="minimum_age_sm">Age To</label>
                             <input min="0" class="form-control" type="number" name="minimum_age_sm" id="minimum_age_sm"
-                            value="{{ $filter['minimum_age_sm'] }}">
+                            value="@if(!empty($filter['minimum_age_sm'])) {{ $filter['minimum_age_sm'] }}@endif">
                         </div>
                         <div class="col-2">
                             <label for="search">Search</label>
                             <input type="text" name="search" id="search" class="form-control"
-                            value="{{ $filter['search'] }}">
+                            value="@if(!empty($filter['search'])) {{ $filter['search'] }}@endif">
                         </div>
                         <div class="col-2">
                             <label for="artist">Artist</label>
                             <input class="form-control" name="artist" id="artist" list="artistList"
-                            value="{{ $filter['artist'] }}">
+                            value="@if(!empty($filter['artist'])) {{ $filter['artist'] }}@endif">
                             <datalist id="artistList">
                                 @foreach($artists as $artist)
                                     @if(!$artist->archived)
@@ -111,6 +111,9 @@
                             <p><b>Event Type: </b>{{ $event->weather_condition }} {{ $event->type }}</p>
                             <p><b>Genre: </b>{{ $event->genre()->first()->name }}</p>
                             <p><b>Minimum Age: </b>{{ $event->minimum_age }}</p>
+                        </div>
+                        <div class="col-4">
+                            <p><b>Organizer: </b>{{ $event->organizerProfile()->name }}</p>
                         </div>
                     </div>
                 </div>

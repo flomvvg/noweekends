@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FilterEventsRequest;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Artist;
@@ -10,6 +11,8 @@ use App\Models\Genre;
 use App\Models\Organizer;
 use App\Models\UnregisteredArtist;
 use App\Models\Venue;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -25,11 +28,54 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(FilterEventsRequest $request): View
     {
-        $events = Event::where('end_date', '>', Carbon::now())->orderBy('end_date')->simplePaginate(15);
+        if ($request->filled('artist')) {
+            $tag = substr($request->artist, -4);
+            $request->artist = Artist::where('tag', $tag)->first()->id;
+        }
+
+        $filteredEvents = Event::query()
+            ->when(!$request->filled('end_date'), fn(Builder $q) => $q->where('end_date', '>', Carbon::now()))
+            ->when($request->filled('type'), fn(Builder $q) => $q->where('type', $request->type))
+            ->when($request->filled('end_date'), fn(Builder $q) => $q->where('end_date', '>=', $request->end_date))
+            ->when($request->filled('weather_condition'), fn(Builder $q) => $q->where('weather_condition', $request->weather_condition))
+            ->when($request->filled('city'), fn(Builder $q) => $q
+                ->join('venues', fn(JoinClause $j) => $j->on('venues.id', '=', 'events.venue_id')
+                ->where('venues.city', $request->city)
+                ->orWhere('events.city', $request->city))->select('events.*'))
+            ->when($request->filled('minimum_age'), fn(Builder $q) => $q->where('minimum_age', '>=', $request->minimum_age))
+            ->when($request->filled('minimum_age_sm'), fn(Builder $q) => $q->where('minimum_age', '<=', $request->minimum_age_sm))
+            ->when($request->filled('genre'), fn(Builder $q) => $q
+                ->join('genres', fn(JoinClause $j) => $j->on('genres.id', '=', 'events.genre_id')
+                    ->where('genres.name', $request->genre))->select('events.*'))
+            ->when($request->filled('search'), fn(Builder $q) => $q->where('events.id', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.description', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.type', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.weather_condition', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.start_date', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.start_time', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.end_date', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.end_time', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.minimum_age', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.venue_name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.street', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('events.city', 'LIKE', '%' . $request->search . '%'))
+            ->when($request->filled('artist'), fn(Builder $q) => $q
+                ->join('artist_event', 'events.id', '=', "artist_event.event_id")
+                ->join('artists', 'artists.id', '=', 'artist_event.artist_id')
+                ->where('artists.id', $request->artist))->select('events.*')
+            ->orderBy('end_date', 'asc')->paginate(10);
+
+        $genres = Genre::all();
+        $artists = Artist::all();
+
         return view('events.index', [
-            'events' => $events,
+            'events' => $filteredEvents,
+            'genres' => $genres,
+            'artists' => $artists,
+            'filter' => $request->all()
         ]);
     }
 

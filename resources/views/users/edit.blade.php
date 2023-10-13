@@ -21,10 +21,11 @@
             <label for="username">Username</label>
             <input type="text" name="username" id="username" class="form-control" value="{{ $user->username }}"/>
         </div>
-        <button type="submit" class="d-inline-block btn btn-primary">Submit</button>
-        <form action="/users/{{ $user->id }}">
-            @method('DELETE')
-            <input type="submit" class="btn btn-danger float-right" value="Delete User"/>
-        </form>
+        <button type="submit" class="d-inline btn btn-primary float-end">Submit</button>
     </form>
+    <form action="/users/{{ $user->id }}">
+        @method('DELETE')
+        <input type="submit" class="btn btn-danger " value="Delete User"/>
+    </form>
+
 </div>

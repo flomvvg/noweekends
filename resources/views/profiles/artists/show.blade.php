@@ -43,7 +43,7 @@
     @endif
     @if($artist->website != null)
         <h3>Website</h3>
-        <p>{{ $artist->website }}</p>
+        <a href="{{ $artist->website }}"><p>{{ $artist->website }}</p></a>
     @endif
     <h2>Upcoming Events</h2>
     <hr>

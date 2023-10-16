@@ -77,13 +77,12 @@ class OrganizerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrganizerRequest $request, Organizer $organizer): View
+    public function update(UpdateOrganizerRequest $request, Organizer $organizer): RedirectResponse
     {
         $this->authorize('edit', $organizer);
         $organizer->update($request->validated());
-        $users = $organizer->users()->get();
 
-        return view('profiles.organizers.show', ['organizer' => $organizer, 'users' => $users])->with('status', 'Your user has been updated');
+        return to_route('organizers.show', ['organizer' => $organizer])->with('status', 'Your user has been updated');
     }
 
     /**

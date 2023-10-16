@@ -315,6 +315,24 @@
         <h4>Added Registered Artists</h4>
         <div class="col-auto row">
             <div class="col-5">Name & Tag</div>
+            @if(!empty(old('registered_artists')))
+                @php($count = 0)
+                @foreach(old('registered_artists') as $artist)
+                    <div id="registered_artist_row_{{ $count }}" class="row pb-1">
+                        <div class="input-group">
+                            <input class="form-control col-4" type="text" name="registered_artists[{{ $count }}][name]"
+                                   value="{{ $artist['name'] }}" readonly>
+                            <input class="form-control col-4" type="text" name="registered_artists[{{ $count }}][tag]"
+                                   value="{{ $artist['tag'] }}" readonly>
+                            <button class="btn btn-danger" type="button" id="delete_registered_{{ $count }}"
+                                    onclick="deleteArtist(registered_artist_row_{{ $count }})">Delete
+                            </button>
+                        </div>
+                    </div>
+                    @php($count++)
+                @endforeach
+            @endif
+
         </div>
         <hr>
         <div id="added_registered_artists">
@@ -440,7 +458,7 @@ function addRegisteredArtist(artists) {
     var input = document.createElement("input");
     input.type = "text";
     input.value = name;
-    input.name = "registered_artists[]";
+    input.name = "registered_artists[" + registeredArtistCount + "][name]";
     input.id = "registered_artist_" + registeredArtistCount;
     input.className = "form-control col-4" + registeredArtistCount;
     input.readOnly = true;
@@ -448,7 +466,7 @@ function addRegisteredArtist(artists) {
     var inputTag = document.createElement("input");
     inputTag.type = "text";
     inputTag.value = tag;
-    inputTag.name = "registered_artists_tags[]";
+    inputTag.name = "registered_artists[" + registeredArtistCount + "][tag]";
     inputTag.id = "registered_artist_tag_" + registeredArtistCount;
     inputTag.className = "form-control col-4" + registeredArtistCount;
     inputTag.readOnly = true;
@@ -467,6 +485,7 @@ function addRegisteredArtist(artists) {
     divInputGroup.appendChild(input);
     divInputGroup.appendChild(inputTag);
     divInputGroup.appendChild(deleteButton);
+    element.value = null;
     registeredArtistCount++;
 }
 

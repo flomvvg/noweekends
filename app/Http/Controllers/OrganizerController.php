@@ -91,11 +91,13 @@ class OrganizerController extends Controller
     public function destroy(Organizer $organizer): RedirectResponse
     {
         $this->authorize('delete', $organizer);
-        $organizer->name = "[Deleted Organizer]";
-        $organizer->tag = "";
-        $organizer->description = null;
-        $organizer->website = null;
-        $organizer->archived = true;
+        $organizer->update([
+            'name' => "[Deleted Organizer]",
+            'description' => null,
+            'tag' => null,
+            'website' => null,
+            'archived' => true,
+        ]);
         $organizer->users()->detach(Auth::id());
         $organizer->save();
 

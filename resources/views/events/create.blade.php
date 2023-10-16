@@ -261,7 +261,7 @@
                             @endif
                         @endforeach
                     </datalist>
-                    <button id="venue_set_button" class="btn btn-success" onclick="addRegisteredArtist()"
+                    <button id="venue_set_button" class="btn btn-success" onclick="addRegisteredArtist({{ $artists }})"
                             type="button">Add
                     </button>
                 </div>
@@ -408,7 +408,22 @@ function addUnregisteredArtist() {
     unregisteredArtistCount++;
 }
 
-function addRegisteredArtist() {
+function addRegisteredArtist(artists) {
+    const element = document.getElementById("registered_artist");
+    const artistFQDN = element.value;
+    const tag = artistFQDN.substring(artistFQDN.length - 4);
+    let artistExists = false;
+
+    artists.forEach((e) => {
+        if (e["tag"] === tag) {
+            artistExists = true;
+        }
+    })
+
+    if (!artistExists) {
+        return;
+    }
+
     var divRow = document.createElement("div");
     divRow.className = "col-auto row pb-1"
     divRow.id = "registered_artist_row_" + registeredArtistCount;
@@ -416,11 +431,9 @@ function addRegisteredArtist() {
     var divInputGroup = document.createElement("div");
     divInputGroup.className = "input-group";
 
-    const artistFQDN = document.getElementById("registered_artist").value
     if (artistFQDN === "") {
         return
     }
-    const tag = artistFQDN.substring(artistFQDN.length - 4);
     const name = artistFQDN.substring(0, artistFQDN.length - 5);
     console.log(name);
 

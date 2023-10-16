@@ -68,7 +68,8 @@ class StoreEventRequest extends FormRequest
             'box_office_available' => [
             ],
             'box_office_price' => [
-                'required_if:box_office_available,on'
+                'required_if:box_office_available,on',
+                'gte:0'
             ],
             'facebook_event' => [
                 'nullable'

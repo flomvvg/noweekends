@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -91,13 +92,15 @@ class OrganizerController extends Controller
     public function destroy(Organizer $organizer): RedirectResponse
     {
         $this->authorize('delete', $organizer);
-        $organizer->update([
-            'name' => "[Deleted Organizer]",
-            'description' => null,
-            'tag' => null,
-            'website' => null,
-            'archived' => true,
-        ]);
+        DB::table('organizers')
+            ->where('id', $organizer->id)
+            ->update([
+                'name' => "[Deleted Organizer]",
+                'description' => null,
+                'tag' => null,
+                'website' => null,
+                'archived' => true,
+            ]);
         $organizer->users()->detach(Auth::id());
         $organizer->save();
 

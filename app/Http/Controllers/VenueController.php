@@ -80,9 +80,8 @@ class VenueController extends Controller
     {
         $this->authorize('edit', $venue);
         $venue->update($request->validated());
-        $users = $venue->users()->get();
 
-        return view('profiles.venues.show', ['venue' => $venue, 'users' => $users])->with('status', 'Your user has been updated');
+        return to_route('venues.show', ['venue' => $venue])->with('status', 'Your user has been updated');
     }
 
     /**

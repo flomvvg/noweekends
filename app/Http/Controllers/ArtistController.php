@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ArtistController extends Controller
@@ -88,16 +89,21 @@ class ArtistController extends Controller
     public function destroy(Artist $artist)
     {
         $this->authorize('delete', $artist);
-        $artist->name = "[Deleted Artist]";
-        $artist->description = null;
-        $artist->tag = "";
-        $artist->spotify = null;
-        $artist->soundcloud = null;
-        $artist->youtube = null;
-        $artist->amazon_music = null;
-        $artist->apple_music = null;
-        $artist->website = null;
-        $artist->archived = true;
+        DB::table('artists')
+            ->where('id', $artist->id)
+            ->update([
+                'name' => "[Deleted Artist]",
+                'description' => null,
+                'tag' => null,
+                'spotify' => null,
+                'soundcloud' => null,
+                'youtube' => null,
+                'amazon_music' => null,
+                'apple_music' => null,
+                'website' => null,
+                'archived' => true,
+            ]);
+
         $artist->users()->detach(Auth::id());
         $artist->save();
 

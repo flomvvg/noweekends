@@ -64,6 +64,8 @@ class StoreEventRequest extends FormRequest
             ],
             'presale_link' => [
                 'required_if:presale_available,on',
+                'nullable',
+                'url'
             ],
             'box_office_available' => [
             ],

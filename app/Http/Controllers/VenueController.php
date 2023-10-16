@@ -9,6 +9,7 @@ use App\Models\Venue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class VenueController extends Controller
@@ -90,15 +91,20 @@ class VenueController extends Controller
     public function destroy(Venue $venue)
     {
         $this->authorize('delete', $venue);
-        $venue->name = "[Deleted Venue]";
-        $venue->description = null;
-        $venue->tag = "";
-        $venue->street = "";
-        $venue->number = "";
-        $venue->zip = 0000;
-        $venue->city = "";
-        $venue->archived = true;
-        $venue->website = null;
+        DB::table('venues')
+            ->where('id', $venue->id)
+            ->update([
+                'name' => "[Deleted Venue]",
+                'description' => null,
+                'tag' => null,
+                'street' => '',
+                'number' => '',
+                'zip' => 0000,
+                'city' => '',
+                'website' => null,
+                'archived' => true,
+            ]);
+
         $venue->users()->detach(Auth::id());
         $venue->save();
 

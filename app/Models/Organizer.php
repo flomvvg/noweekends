@@ -23,6 +23,7 @@ class Organizer extends Model
         'name',
         'description',
         'tag',
+        'website',
         'archived'
     ];
     protected $casts = [

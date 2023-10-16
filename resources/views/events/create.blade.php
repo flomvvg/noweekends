@@ -507,10 +507,10 @@ function fillVenue(venues) {
     let venueFQDN = element.value;
     const tag = venueFQDN.substring(venueFQDN.length - 4);
     const venueName = document.getElementById("venue_name");
-    const venueStreet = document.getElementById("venue_street");
-    const venueNumber = document.getElementById("venue_number");
-    const venueZip = document.getElementById("venue_zip");
-    const venueCity = document.getElementById("venue_city");
+    const venueStreet = document.getElementById("street");
+    const venueNumber = document.getElementById("number");
+    const venueZip = document.getElementById("zip");
+    const venueCity = document.getElementById("city");
     venues.forEach((e) => {
         if (e["tag"] === tag) {
             venueName.value = e["name"];

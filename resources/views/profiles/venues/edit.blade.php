@@ -1,16 +1,6 @@
 @include('base.base')
 @include('base.nav')
 <div class="container">
-    @if($errors->any())
-        @foreach($errors->all() as $error)
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ $error }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endforeach
-    @endif
         <h1>Edit Venue Profile</h1>
         <form action="/venues/{{ $venue->id }}" method="POST">
         @csrf @method('PATCH')
@@ -42,7 +32,7 @@
             <label for="website">Website</label>
             <input class="form-control" type="text" name="website" id="website" value="{{ $venue->website }}">
         </div>
-        <input type="submit" class="btn btn-primary float-right" value="Submit" />
+        <input type="submit" class="btn btn-primary float-end" value="Submit" />
     </form>
     <form action="/venues/{{ $venue->id }}" METHOD="POST">
         @csrf @method('DELETE')

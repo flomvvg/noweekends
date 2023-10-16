@@ -57,7 +57,8 @@ class StoreEventRequest extends FormRequest
                 'exists:genres,name'
             ],
             'minimum_age' => [
-                'required'
+                'required',
+                'gte:0'
             ],
             'presale_available' => [
             ],

@@ -83,7 +83,7 @@
         <br>
         <div class="form-group">
             <label for="minimum_age">Minimum Age</label><span class="text-danger"> *</span>
-            <input class="form-control" type="number" min="0" name="minimum_age" id="minimum_age"
+            <input class="form-control" type="number" name="minimum_age" id="minimum_age"
                    value="{{ old('minimum_age') }}">
             <div id="minimum_age_help" class="form-text">0 = All Ages</div>
         </div>

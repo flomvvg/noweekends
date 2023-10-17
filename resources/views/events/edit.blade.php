@@ -204,14 +204,13 @@
             <div class="form-group">
                 <div class="form-check form-switch">
                     <label for="venue_registered">Venue Registered?</label>
-                    <input onchange="changeDisabled('venue');
+                    <input onchange="changeDisabled('venue', true); changeDisabled('venue_set_button')
                     changeReadOnly([
                     'venue_name',
                     'street',
                     'number',
                     'zip',
                     'city',
-                    'venue_set_button'
                     ]); " class="form-check-input" type="checkbox" name="venue_registered"
                            id="venue_registered" @if($event->venue_registered) checked @endif>
                 </div>
@@ -236,7 +235,7 @@
                     @endforeach
                 </datalist>
                 <button id="venue_set_button" class="btn btn-success" onclick="fillVenue({{ json_encode($venues) }})"
-                        type="button">Set
+                        type="button" @if(!$event->venue_registered) disabled @endif>Set
                 </button>
             </div>
         </div>
@@ -670,9 +669,12 @@
         });
     }
 
-    function changeDisabled(id) {
+    function changeDisabled(id, deleteValue = false) {
         const element = document.getElementById(id);
         element.disabled = !element.disabled;
+        if (deleteValue) {
+            element.value = null;
+        }
     }
 
 

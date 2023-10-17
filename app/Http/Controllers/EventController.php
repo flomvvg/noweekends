@@ -194,6 +194,7 @@ class EventController extends Controller
      */
     public function edit(Event $event, Request $request)
     {
+        $this->authorize('edit', $event);
         $user = $request->user();
         $userProfiles = $user->organizers()->get();
         $userProfiles = $userProfiles->concat($user->venues()->get());
@@ -202,7 +203,6 @@ class EventController extends Controller
         $organizer = $event->organizerProfile();
 
 
-        $this->authorize('edit', $event);
         return view('events.edit', [
             'event' => $event,
             'genres' => Genre::all(),
@@ -218,6 +218,7 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
+        $this->authorize('edit', $event);
         $validated = $request->validated();
 
         $event->artists()->detach();
@@ -279,6 +280,7 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        $this->authorize('delete', $event);
         $event->cancelled = !$event->cancelled;
         $event->save();
 

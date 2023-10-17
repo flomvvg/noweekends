@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\Venue;
 
 class VenuePolicy
 {
@@ -14,14 +15,13 @@ class VenuePolicy
         //
     }
 
-    public function edit(User $user): bool
+    public function edit(User $user, Venue $venue): bool
     {
-        return $user->venues()->exists();
+        return $venue->users()->where('users.id', $user->id)->exists();
     }
 
-    public function delete(User $user): bool
+    public function delete(User $user, Venue $venue): bool
     {
-        return $user->venues()->exists();
-
+        return $venue->users()->where('users.id', $user->id)->exists();
     }
 }

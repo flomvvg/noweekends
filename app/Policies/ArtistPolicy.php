@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Artist;
 use App\Models\User;
 
 class ArtistPolicy
@@ -13,12 +14,12 @@ class ArtistPolicy
     {
         //
     }
-    public function edit(User $user): bool
+    public function edit(User $user, Artist $artist): bool
     {
-        return $user->artists()->exists();
+        return $artist->users()->where('users.id', $user->id)->exists();
     }
-    public function delete(User $user): bool
+    public function delete(User $user, Artist $artist): bool
     {
-        return $user->artists()->exists();
+        return $artist->users()->where('users.id', $user->id)->exists();
     }
 }

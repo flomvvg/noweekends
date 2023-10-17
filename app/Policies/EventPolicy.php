@@ -17,17 +17,15 @@ class EventPolicy
 
     public function edit(User $user, Event $event): bool
     {
-        $organizerProfileType = new("App\\Models\\" . ucfirst($event->organizer_profile_type));
-        $organizer = $organizerProfileType::find($event->organizer_profile_id);
+        $organizer = $event->organizerProfile();
 
-        return $organizer->users()->exists();
+        return $organizer->users()->where('users.id', $user->id)->exists();
     }
 
     public function delete(User $user, Event $event): bool
     {
-        $organizerProfileType = new("App\\Models\\" . ucfirst($event->organizer_profile_type));
-        $organizer = $organizerProfileType::find($event->organizer_profile_id);
+        $organizer = $event->organizerProfile();
 
-        return $organizer->users()->exists();
+        return $organizer->users()->where('users.id', $user->id)->exists();
     }
 }

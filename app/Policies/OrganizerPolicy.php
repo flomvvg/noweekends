@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Organizer;
 use App\Models\User;
 
 class OrganizerPolicy
@@ -14,13 +15,13 @@ class OrganizerPolicy
         //
     }
 
-    public function edit(User $user): bool
+    public function edit(User $user, Organizer $organizer): bool
     {
-        return $user->organizers()->exists();
+        return $organizer->users()->where('users.id', $user->id)->exists();
     }
 
-    public function delete(User $user): bool
+    public function delete(User $user, Organizer $organizer): bool
     {
-        return $user->organizers()->exists();
+        return $organizer->users()->where('users.id', $user->id)->exists();
     }
 }

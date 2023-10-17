@@ -472,9 +472,9 @@
                     @foreach(old('registered_artists') as $artist)
                         <div id="registered_artist_row_{{ $count }}" class="row pb-1">
                             <div class="input-group">
-                                <input class="form-control col-4" type="text" name="registered_artists[][name]"
+                                <input class="form-control col-4" type="text" name="registered_artists[{{ $count }}][name]"
                                        value="{{ $artist['name'] }}" readonly>
-                                <input class="form-control col-4" type="text" name="registered_artists[][tag]"
+                                <input class="form-control col-4" type="text" name="registered_artists[{{ $count }}][tag]"
                                        value="{{ $artist['tag'] }}" readonly>
                                 <button class="btn btn-danger" type="button" id="delete_registered_{{ $count }}"
                                         onclick="deleteArtist(registered_artist_row_{{ $count }})">Delete

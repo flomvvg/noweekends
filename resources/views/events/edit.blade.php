@@ -108,7 +108,7 @@
         <br>
         <div class="form-group">
             <div class="form-check form-switch">
-                <label for="presale_available">Presale Available?</label><span class="text-danger"> *</span>
+                <label for="presale_available">Presale Available?</label>
                 <input onchange="changeReadOnly([
                     'presale_link_label',
                     'presale_link'
@@ -130,7 +130,7 @@
         <br>
         <div class="form-group">
             <div class="form-check form-switch">
-                <label for="box_office_available">Box Office Available?</label><span class="text-danger"> *</span>
+                <label for="box_office_available">Box Office Available?</label>
                 <input onchange="changeReadOnly([
                     'box_office_price',
                     'box_office_price_label'
@@ -152,7 +152,7 @@
         <br>
         <div class="form-group">
             <div class="form-check form-switch">
-                <label for="oneway">One Way Entry?</label><span class="text-danger"> *</span>
+                <label for="oneway">One Way Entry?</label>
                 <input class="form-check-input" type="checkbox" name="oneway" id="oneway"
                        @if(old('oneway') === "on" || $event->oneway) checked @endif>
                 <div id="onewayHelpOn" class="form-text">On: If visitors leave, they have to pay again to re-enter the
@@ -171,7 +171,7 @@
         </div>
         <br>
         <div class="col-auto row">
-            <label for="organizer_profile_tag">Organizer (Tag)</label>
+            <label for="organizer_profile_tag">Organizer (Tag)<span class="text-danger"> *</span></label>
             <div class="input-group">
                 <input class="form-control" name="organizer_profile_tag" id="organizer_profile_tag" list="organizerList"
                        value="@if(old('organizer_profile_tag') != null){{ old('organizer_profile_tag') }}@else{{ $eventOrganizer->tag }}@endif">

@@ -8,11 +8,11 @@
     <form action="/login" method="POST">
         @csrf
         <div class="form-group">
-            <label for="email">E-Mail Address</label>
+            <label for="email">E-Mail Address</label><span class="text-danger"> *</span>
             <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}"/>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Password</label><span class="text-danger"> *</span>
             <input type="password" name="password" id="password" class="form-control" />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

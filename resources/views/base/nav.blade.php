@@ -1,7 +1,7 @@
 @php use Illuminate\Support\Facades\Auth; @endphp
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">NoWeekends</a>
+        <a class="navbar-brand" href="#">TheGathering</a>
         <div class="navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item">
